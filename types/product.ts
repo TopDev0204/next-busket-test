@@ -11,3 +11,10 @@ export interface productType {
   thumbnail: string;
   images?: Array<string>;
 }
+
+export interface responseType {
+  limit: number;
+  products: productType[];
+  skip: number;
+  total: number;
+}

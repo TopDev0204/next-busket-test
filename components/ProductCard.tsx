@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { productType } from "@/types/productType";
+import { productType } from "@/types/product";
 import { calculateDiscountedPrice } from "@/utils/calculate";
 
 interface ProductCardProps {
@@ -19,22 +19,25 @@ const ProductCard: FC<ProductCardProps> = ({ product, addToBasket }) => {
 
   return (
     <div
-      className="relative border rounded shadow hover:shadow-md transition pb-4 "
+      className="relative border rounded shadow hover:shadow-md transition pb-6 "
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       onClick={viewProduct}
     >
       {product?.thumbnail && (
         <div className="relative p-4">
-          <Image
-            src={product.thumbnail}
-            alt={product.brand}
-            width={268}
-            height={268}
-            className="w-full"
-            key={product.thumbnail}
-            priority
-          />
+          <div className="max-h-[250px] overflow-hidden">
+            <Image
+              src={product.thumbnail}
+              alt={product.brand}
+              width={268}
+              height={268}
+              className="w-full h-auto"
+              key={product.thumbnail}
+              priority
+            />
+          </div>
+
           {product.stock === 0 && (
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-darkGray text-white text-sm font-rubik py-1 px-2 rounded-bl">
               Out of stock
@@ -153,7 +156,7 @@ const ProductCard: FC<ProductCardProps> = ({ product, addToBasket }) => {
       </div>
       {isHovering && (
         <button
-          className={`absolute w-full py-2 text-white ${
+          className={`absolute bottom-0 w-full py-2 text-white ${
             product.stock === 0
               ? "bg-gray-500 cursor-not-allowed"
               : "bg-blue-600 hover:bg-blue-700"

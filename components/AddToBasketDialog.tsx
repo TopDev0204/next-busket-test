@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Image from "next/image";
-import { productType } from "@/types/productType";
+import { productType } from "@/types/product";
 import Modal from "./Modal";
 import { calculateDiscountedPrice } from "@/utils/calculate";
 
@@ -20,13 +20,16 @@ const AddToBasketDialog: FC<AddToBasketDialogProps> = ({
   return (
     <Modal onClose={onRequestClose} title="Successfully added to basket">
       <div className="flex items-center mt-5">
-        <Image
-          src={product.thumbnail}
-          alt={product.brand}
-          width={64}
-          height={64}
-          priority
-        />
+        <div className="max-h-[64px] overflow-hidden">
+          <Image
+            src={product.thumbnail}
+            alt={product.brand}
+            width={64}
+            height={64}
+            className="w-full h-auto"
+            priority
+          />
+        </div>
         <div className="ml-4">
           <p className="mt-1 font-rubik text-sm font-medium leading-[16.59px] text-left text-darkGray">
             {product.title}

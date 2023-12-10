@@ -1,59 +1,10 @@
 "use client";
 
 import { FC, useEffect, useState } from "react";
-import { productType } from "@/types/productType";
+import { productType, responseType } from "@/types/product";
 import ProductCard from "../components/ProductCard";
 import AddToBasketDialog from "../components/AddToBasketDialog";
-
-const products: productType[] = [
-  {
-    id: 1,
-    title: "Example for Product Title",
-    description: "",
-    brand: "Supernova fashion",
-    thumbnail: "https://i.dummyjson.com/data/products/1/3.jpg",
-    price: 9999.99,
-    rating: 5.8,
-    stock: 1,
-    category: "HOB",
-  },
-  {
-    id: 2,
-    title: "Example for Product Title",
-    description: "",
-    brand: "Supernova fashion",
-    thumbnail: "https://i.dummyjson.com/data/products/1/3.jpg",
-    price: 9999.99,
-    discountPercentage: 35,
-    rating: 5.8,
-    stock: 2,
-    category: "HOB",
-  },
-  {
-    id: 3,
-    title: "Example for Product Title",
-    description: "",
-    brand: "Supernova fashion",
-    thumbnail: "https://i.dummyjson.com/data/products/1/3.jpg",
-    price: 9999.99,
-    discountPercentage: 35,
-    rating: 5.8,
-    stock: 54,
-    category: "HOB",
-  },
-  {
-    id: 4,
-    title: "Example for Product Title",
-    description: "",
-    brand: "Supernova fashion",
-    thumbnail: "https://i.dummyjson.com/data/products/1/3.jpg",
-    price: 9999.99,
-    discountPercentage: 35,
-    rating: 5.8,
-    stock: 54,
-    category: "HOB",
-  },
-];
+import { fetchProducts } from "./api/routes";
 
 const HomePage: FC = () => {
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -63,11 +14,14 @@ const HomePage: FC = () => {
 
   useEffect(() => {
     setIsMounted(true);
-    setProductData(products);
+    fetchProducts()
+      .then((response) => response.json())
+      .then((data: responseType) => setProductData(data.products))
+      .catch((error) => console.error(error));
   }, []);
 
   const handleAddToBasket = (id: number) => {
-    setProduct(products.find((item) => item.id === id));
+    setProduct(productData.find((item) => item.id === id));
     setProductData(
       productData.map((product: productType) => {
         if (product.id === id && product.stock > 0)
@@ -82,7 +36,7 @@ const HomePage: FC = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-7 p-12">
+      <div className="grid grid-cols-1 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-7 p-12">
         {productData.map((item) => (
           <ProductCard
             key={item.id}
