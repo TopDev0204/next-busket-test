@@ -26,7 +26,7 @@ const products: productType[] = [
     price: 9999.99,
     discountPercentage: 35,
     rating: 5.8,
-    stock: 54,
+    stock: 2,
     category: "HOB",
   },
   {
@@ -82,7 +82,7 @@ const HomePage: FC = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-7 p-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-7 p-12">
         {productData.map((item) => (
           <ProductCard
             key={item.id}
