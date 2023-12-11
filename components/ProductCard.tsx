@@ -27,15 +27,31 @@ const ProductCard: FC<ProductCardProps> = ({ product, addToBasket }) => {
       {product?.thumbnail && (
         <div className="relative p-4 h-[270px] flex items-center">
           <div className="relative max-h-[250px] min-h-[150px] overflow-hidden">
-            <Image
-              src={product.thumbnail}
-              alt={product.brand}
-              width={268}
-              height={268}
-              className="w-full h-auto"
-              key={product.thumbnail}
-              priority
-            />
+            {product.images && !isHovering ? (
+              <Image
+                src={product.images[0]}
+                alt={product.brand}
+                width={268}
+                height={268}
+                className={`w-full h-auto ${
+                  product.stock === 0 ? "blur-sm" : ""
+                }`}
+                key={product.thumbnail}
+                priority
+              />
+            ) : (
+              <Image
+                src={product.thumbnail}
+                alt={product.brand}
+                width={268}
+                height={268}
+                className={`w-full h-auto ${
+                  product.stock === 0 ? "blur-sm" : ""
+                }`}
+                key={product.thumbnail}
+                priority
+              />
+            )}
             {product.stock === 0 && (
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-darkGray text-white text-sm font-rubik py-1 px-2 rounded-bl">
                 Out of stock
