@@ -1,6 +1,7 @@
 "use client";
 
 import { FC, useEffect, useState } from "react";
+import Script from "next/script";
 import { productType, responseType } from "@/types/product";
 import ProductCard from "../components/ProductCard";
 import AddToBasketDialog from "../components/AddToBasketDialog";
@@ -36,6 +37,18 @@ const HomePage: FC = () => {
 
   return (
     <>
+      <div className="container">
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-BRDLG8LSRY" />
+        <Script id="google-analytics">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+ 
+          gtag('config', 'G-BRDLG8LSRY');
+        `}
+        </Script>
+      </div>
       <div className="grid grid-cols-1 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-7 p-12">
         {productData.map((item) => (
           <ProductCard
