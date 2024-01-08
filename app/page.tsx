@@ -45,7 +45,7 @@ const HomePage: FC = () => {
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
  
-          gtag('config', 'G-BRDLG8LSRY');
+          gtag('config', 'G-BRDLG8LSRY', { 'debug_mode':true });
         `}
         </Script>
       </div>
